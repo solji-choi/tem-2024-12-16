@@ -47,6 +47,20 @@ public class PostController {
     }
 
 
+    @GetMapping("/{id}")
+    public String showDetail(Model model, @PathVariable long id) {
+        Post post = posts
+                .stream()
+                .filter(p -> p.getId() == id)
+                .findFirst()
+                .orElseThrow();
+
+        model.addAttribute("post", post);
+
+        return "domain/post/post/detail";
+    }
+
+
     @GetMapping("/write")
     public String showWrite(
             PostWriteForm form
